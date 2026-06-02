@@ -1,15 +1,16 @@
 from typing import Optional, List
+from pydantic import BaseModel
 
 
 # TODO 7: These should be schemas used for data validation and serialization
 
-class AuthorSchema():
+class AuthorSchema(BaseModel):
     id: int
     name: str
     biography: Optional[str] = None
 
 
-class BookSchema():
+class BookSchema(BaseModel):
     id: int
     title: str
     price: float
@@ -18,7 +19,7 @@ class BookSchema():
     author: AuthorSchema
 
 
-class BookCreate():
+class BookCreate(BaseModel):
     title: str
     price: float
     quantity: int
@@ -26,7 +27,7 @@ class BookCreate():
     author_id: int
 
 
-class BookUpdate():
+class BookUpdate(BaseModel):
     title: Optional[str] = None
     price: Optional[float] = None
     quantity: Optional[int] = None
@@ -34,21 +35,21 @@ class BookUpdate():
     author_id: Optional[int] = None
 
 
-class UserSchema():
+class UserSchema(BaseModel):
     id: int
     username: str
     email: str
 
-class CartItemSchema():
+class CartItemSchema(BaseModel):
     id: int
     book: BookSchema
 
 
-class CartItemCreate():
+class CartItemCreate(BaseModel):
     book_id: int
 
 
-class CartSchema():
+class CartSchema(BaseModel):
     id: int
     user: UserSchema
     cart_items: List[CartItemSchema] = []
