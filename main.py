@@ -6,6 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from database.database import engine
 from database.seed import seed
 from model.models import Base
+from web import book_router, cart_router, author_router
+
 
 Base.metadata.create_all(bind=engine)
 
@@ -35,6 +37,9 @@ app.add_middleware(
 
 
 # TODO 22: Register the routers
+app.include_router(book_router.router)
+app.include_router(cart_router.router)
+app.include_router(author_router.router)
 
 
 @app.get("/")
