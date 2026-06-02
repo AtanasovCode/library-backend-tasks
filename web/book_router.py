@@ -23,11 +23,13 @@ async def find_book(book_id: int, db: Session = Depends(get_db)):
 
 
 # TODO 15: Annotate the method with the correct mapping (path = "")
+@router.post("", response_model=BookSchema)
 async def create_book(book_create: BookCreate, db: Session = Depends(get_db)):
     return book_service.save(db, book_create)
 
 
 # TODO 16: Annotate the method with the correct mapping (path = "/{book_id}")
+@router.put("/{book_id}", response_model=BookSchema)
 async def update_book(book_id: int, book_update: BookUpdate, db: Session = Depends(get_db)):
     book = book_service.find_by_id(db, book_id)
     if book is not None:
@@ -36,6 +38,7 @@ async def update_book(book_id: int, book_update: BookUpdate, db: Session = Depen
 
 
 # TODO 17: Annotate the method with the correct mapping (path = "/{book_id}")
+@router.delete("/{book_id}")
 async def delete_book(book_id: int, db: Session = Depends(get_db)):
     book = book_service.find_by_id(db, book_id)
     if book is not None:
